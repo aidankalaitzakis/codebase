@@ -272,7 +272,6 @@ Enjoy seamless code management with Codebase! 🚀
 	  
 &copy; Aidan Kalaitzakis 2025
 aidankala.com</textarea>
-
     <div class="button-container">
       <button id="copyButton" class="copy-btn" onclick="copyCode()"><i class="fas fa-copy"></i> Copy to Clipboard</button>
       <button id="uploadButton" class="upload-btn" onclick="uploadSnippet()"><i class="fas fa-upload"></i> Upload Snippet</button>
@@ -298,32 +297,37 @@ aidankala.com</textarea>
   </div>
 
   <script>
-    function uploadSnippet() {
-      const snippetName = document.getElementById("snippetName").value.trim();
-      const codeInput = document.getElementById("codeInput").value.trim();
+	async function uploadSnippet() {
+	  const snippetName = document.getElementById("snippetName").value.trim();
+	  const codeInput = document.getElementById("codeInput").value.trim();
 
-      if (snippetName === "" || codeInput === "") {
-        alert("Please provide both a name and some code.");
-        return;
-      }
+	  if (snippetName === "" || codeInput === "") {
+		alert("Please provide both a name and some code.");
+		return;
+	  }
 
-      const formData = new FormData();
-      formData.append('name', snippetName);
-      formData.append('code', codeInput);
+	  const formData = new FormData();
+	  formData.append('name', snippetName);
+	  formData.append('code', codeInput);
 
-      const response = fetch('upload.php', {
-        method: 'POST',
-        body: formData
-      });
+	  try {
+		const response = await fetch('upload.php', {
+		  method: 'POST',
+		  body: formData
+		});
 
-      if (response.ok) {
-        alert('Snippet uploaded successfully!');
-        document.getElementById("codeInput").value = "";
-        document.getElementById("snippetName").value = "";
-      } else {
-        alert('Error uploading snippet');
-      }
-    }
+		if (response.ok) {
+		  alert('Snippet uploaded successfully!');
+		  document.getElementById("codeInput").value = "";
+		  document.getElementById("snippetName").value = "";
+		} else {
+		  alert('Error uploading snippet');
+		}
+	  } catch (error) {
+		alert('Error uploading snippet: ' + error.message);
+	  }
+	}
+
 
     async function loadSnippet() {
       const snippetName = document.getElementById("snippetName").value.trim();
