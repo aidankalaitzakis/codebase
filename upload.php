@@ -1,3 +1,12 @@
+<!---
+
+Codebase created by (c) 2025 Aidan Kalaitzakis
+https://github.com/aidankalaitzakis/codebase
+
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. You may not use this work for commercial purposes. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/.
+
+-->
+
 <?php
 $codebaseDir = 'codebase/';
 if (!is_dir($codebaseDir)) {
