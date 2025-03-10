@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<!---
+
+Codebase created by (c) 2025 Aidan Kalaitzakis
+https://github.com/aidankalaitzakis/codebase
+
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. You may not use this work for commercial purposes. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/.
+
+-->
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codebase</title>
+  <link rel="icon" href="https://cdn.iconscout.com/icon/free/png-256/recycle-bin-2185420-1831675.png" type="image/png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+      transition: background-color 0.3s, color 0.3s;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #007bff;
+      word-wrap: break-word;
+    }
+
+    h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3em;
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 200px;
+      margin: 5px;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .upload-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .load-btn {
+      background-color: #17a2b8;
+      color: white;
+    }
+
+    .copy-btn {
+      background-color: #ffc107;
+      color: white;
+    }
+
+    .snippet-container {
+      margin-top: 20px;
+      display: none;
+    }
+
+    pre {
+      background-color: #f8f8f8;
+      padding: 15px;
+      border-radius: 4px;
+      overflow: auto;
+      text-align: left;
+    }
+
+    code {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 50px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      border-radius: 50px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: #007bff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .slider .moon-sun {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+    }
+
+    .moon {
+      left: 8px;
+    }
+
+    .sun {
+      right: 8px;
+    }
+
+    #theme-toggle {
+      margin-top: 20px;
+    }
+
+    .dark-mode {
+      background-color: #2c2f38;
+      color: white;
+    }
+
+    .dark-mode .container {
+      background-color: #3b4049;
+      color: white;
+    }
+
+    .dark-mode .button-container button {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .dark-mode pre {
+      background-color: #444;
+      color: white;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      button {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      h3 {
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-code"></i> Codebase</h1>
+    <h3>Upload and Copy Code Snippets</h3>
+    <input id="snippetName" type="text" placeholder="Enter name to save/load snippet" />
+    <textarea id="codeInput" rows="22" cols="50">
+🚀 Welcome to Codebase!
+
+Codebase is a simple and efficient tool to upload, load, and copy your code snippets with ease.  
+
+1️⃣ Upload a Snippet  
+- Enter a unique name in the input box.  
+- Paste or write your code in the text area.  
+- Click "Upload Snippet" to save it.  
+
+2️⃣ Load a Snippet  
+- Enter the name of a saved snippet.  
+- Click "Load Snippet" to retrieve it.  
+
+3️⃣ Copy Code  
+- Click "Copy to Clipboard" to quickly copy your code.  
+
+Enjoy seamless code management with Codebase! 🚀
+	  
+&copy; Aidan Kalaitzakis 2025
+aidankala.com</textarea>
+
+    <div class="button-container">
+      <button id="copyButton" class="copy-btn" onclick="copyCode()"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+      <button id="uploadButton" class="upload-btn" onclick="uploadSnippet()"><i class="fas fa-upload"></i> Upload Snippet</button>
+      <button id="loadButton" class="load-btn" onclick="loadSnippet()"><i class="fas fa-download"></i> Load Snippet</button>
+    </div>
+
+    <div id="uploadedSnippet" class="snippet-container">
+      <pre><code id="snippetCode"></code></pre>
+      <button class="copy-btn" id="copyUploadedButton" onclick="copyUploadedCode()"><i class="fas fa-copy"></i> Copy Uploaded Code</button>
+    </div>
+
+    <div class="switch" id="theme-toggle">
+      <label>
+        <input type="checkbox" onchange="toggleTheme()">
+        <span class="slider">
+          <span class="moon-sun moon"><i class="fas fa-moon"></i></span>
+          <span class="moon-sun sun"><i class="fas fa-sun"></i></span>
+        </span>
+      </label>
+    </div>
+
+    <p style="margin-top: 20px;">Created by <a href="https://aidankala.com" target="_blank">Aidan Kalaitzakis</a></p>
+  </div>
+
+  <script>
+    function uploadSnippet() {
+      const snippetName = document.getElementById("snippetName").value.trim();
+      const codeInput = document.getElementById("codeInput").value.trim();
+
+      if (snippetName === "" || codeInput === "") {
+        alert("Please provide both a name and some code.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('name', snippetName);
+      formData.append('code', codeInput);
+
+      const response = fetch('upload.php', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        alert('Snippet uploaded successfully!');
+        document.getElementById("codeInput").value = "";
+        document.getElementById("snippetName").value = "";
+      } else {
+        alert('Error uploading snippet');
+      }
+    }
+
+    async function loadSnippet() {
+      const snippetName = document.getElementById("snippetName").value.trim();
+      if (snippetName === "") {
+        alert("Please enter a snippet name to load.");
+        return;
+      }
+
+      const response = await fetch(`loadSnippet.php?name=${snippetName}`);
+      if (response.ok) {
+        const snippet = await response.json();
+        document.getElementById("snippetCode").textContent = snippet.code;
+        document.getElementById("uploadedSnippet").style.display = "block";
+        window.scrollTo(0, 0);
+      } else {
+        alert("Snippet not found");
+      }
+    }
+
+    function copyCode() {
+      const codeInput = document.getElementById("codeInput");
+      codeInput.select();
+      document.execCommand("copy");
+      alert("Code copied to clipboard!");
+    }
+
+    function copyUploadedCode() {
+      const snippetCode = document.getElementById("snippetCode");
+      const range = document.createRange();
+      range.selectNode(snippetCode);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      alert("Uploaded code copied to clipboard!");
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+    }
+  </script>
+</body>
+</html>
